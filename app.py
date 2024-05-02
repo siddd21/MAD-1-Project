@@ -16,7 +16,8 @@ from flask_login import (
 )
 import os
 import matplotlib.pyplot as plt
-import seaborn as sns  # type: ignore
+
+# import seaborn as sns  # type: ignore
 
 app = Flask(__name__, static_url_path="/static")
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///projectdb.sqlite3"
