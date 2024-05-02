@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+    />
+    <link rel="stylesheet" href="../static/style.css" />
+  </head>
+  <body>
+    <!-- <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <p class="fs-1 text-center">{{ creator_count }}</p>
+          <p class="fs-3 text-center">Creatos</p>
+        </div>
+        <div class="col-6">
+          <p class="fs-1 text-center">{{ general_user_count }}</p>
+          <p class="fs-3 text-center">General Users</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <p class="fs-1 text-center">{{ songs|length }}</p>
+          <p class="fs-3 text-center">Songs</p>
+        </div>
+        <div class="col-6">
+          <p class="fs-1 text-center">{{ albums|length }}</p>
+          <p class="fs-3 text-center">Albums</p>
+        </div>
+      </div>
+      <div class="container">
+        <h4>Songs</h4>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Sr No.</th>
+              <th scope="col">Song</th>
+              <th scope="col">Artist</th>
+              <th scope="col">Rating</th>
+              <th scope="col">Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for song in songs %}
+            <tr>
+              <td>{{ loop.index }}</td>
+              <td>{{ song.song_name }}</td>
+              <td>{{ song.artist }}</td>
+              <td>{{ song.rating }}</td>
+              <td>
+                <a href="/delete_song/{{ song.song_id }}" class="btn btn-danger"
+                  >Delete</a
+                >
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="container">
+        <h4>Albums</h4>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Sr No.</th>
+              <th scope="col">Album</th>
+              <th scope="col">Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for album in albums %}
+            <tr>
+              <td>{{ loop.index }}</td>
+              <td>{{ album.album_name }}</td>
+              <td>
+                <a
+                  href="/delete_album/{{ album.album_id }}"
+                  class="btn btn-danger"
+                  >Delete</a
+                >
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div> -->
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" style="font-size: 25px">
+          <i class="bi bi-headphones me-2"></i>RHYTHMIX</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                aria-current="page"
+                href="/admin_dashboard"
+                >Dashboard</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin_songs">Songs</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin_albums">Albums</a>
+            </li>
+          </ul>
+          <form
+            class="d-flex"
+            role="search"
+            method="POST"
+            action="/admin_search"
+          >
+            <input
+              class="form-control me-2"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+              name="query"
+            />
+            <button class="btn btn-outline-light" type="submit">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+          </form>
+          <li class="nav-item navbar-nav">
+            <a href="/" class="nav-link"
+              >Logout <i class="fa-solid fa-right-from-bracket"></i
+            ></a>
+          </li>
+        </div>
+      </div>
+    </nav>
+    <div class="content">
+      <div class="mx-3 my-2">
+        <div class="row">
+          <div class="col-3 d-flex flex-column justify-content-between">
+            <div
+              class="text-center bg-secondary bg-gradient rounded text-dark mb-3"
+            >
+              <p style="font-size: 100px">{{ users_count }}</p>
+              <h5>Total Users</h5>
+            </div>
+            <div class="text-center bg-secondary bg-gradient rounded mb-3">
+              <a
+                href="/all_creators"
+                class="link-dark link-offset-2 link-underline link-underline-opacity-0"
+              >
+                <p style="font-size: 100px">{{ creator_count }}</p>
+                <h5>Creators</h5>
+              </a>
+            </div>
+            <div class="text-center bg-secondary bg-gradient rounded text-dark">
+              <p style="font-size: 100px">{{ general_user_count }}</p>
+              <h5>General Users</h5>
+            </div>
+          </div>
+          <div class="col-9">
+            <div class="d-flex justify-content-around">
+              <div
+                class="text-center bg-secondary bg-gradient rounded text-dark"
+                style="height: 200px; width: 300px"
+              >
+                <p style="font-size: 100px">{{songs | length}}</p>
+                <h6 class="mb-auto">Total Songs</h6>
+              </div>
+              <div
+                class="text-center bg-secondary bg-gradient rounded text-dark"
+                style="height: 200px; width: 300px"
+              >
+                <p style="font-size: 100px">{{albums | length}}</p>
+                <h6 class="mb-auto">Total Albums</h6>
+              </div>
+              <div
+                class="d-flex flex-column justify-content-between"
+                style="height: 200px; width: 300px"
+              >
+                <div
+                  class="d-flex bg-secondary bg-gradient rounded text-dark justify-content-around"
+                  style="height: 90px; width: 300px"
+                >
+                  <p style="font-size: 50px" class="ms-2">{{plays}}</p>
+                  <p style="font-size: 30px" class="mt-3 me-3">Total Streams</p>
+                </div>
+                <div
+                  class="bg-secondary bg-gradient rounded text-dark justify-content-around text-center"
+                  style="height: 90px; width: 300px"
+                >
+                  MOST PLAYED SONG
+                  <p class="text-center text-uppercase" style="font-size: 40px">
+                    {{most_played}}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="d-flex justify-content-around mt-3">
+              <div class="">
+                <img
+                  src="{{url_for('static', filename = 'graphs/'+ratings_graph_path)}}"
+                  alt="Ratings garph"
+                  style="height: 375px; width: 500px; border: 2px solid black"
+                  class="rounded"
+                />
+              </div>
+              <div class="">
+                <img
+                  src="{{url_for('static', filename = 'graphs/'+genre_graph_path)}}"
+                  alt="Genre graph"
+                  style="height: 375px; width: 500px; border: 2px solid black"
+                  class="rounded"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

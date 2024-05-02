@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RHYTHMIX - Profile</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="../static/style.css" />
+    <style>
+      .profile-image {
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+      }
+      .profile {
+        display: flex;
+        align-items: center;
+        font-size: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="flex-row">
+      <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/homepage" style="font-size: 25px">
+            <i class="bi bi-headphones me-2"></i>RHYTHMIX
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="/homepage"
+                  >Home</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/all_albums">Albums</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Your Library
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a class="dropdown-item" href="/liked_songs">Liked songs</a>
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      href="/user_playlists/{{current_user.user_id}}"
+                      >Your Playlits</a
+                    >
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <form
+              action="/search_page"
+              method="POST"
+              class="d-flex mx-auto my-2"
+              role="search"
+              name="search_form"
+            >
+              <input
+                class="form-control me-2"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+                name="query"
+                id="query"
+              />
+              <button class="btn btn-outline-light" type="submit">
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </button>
+            </form>
+            <ul class="navbar-nav ms-auto">
+              {% if current_user.user_type != 'creator' %}
+              <li class="nav-item">
+                <a href="/creator" class="nav-link">Creator Account</a>
+              </li>
+              {% else %}
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="/creator"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Creator Account
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a class="dropdown-item" href="/creator_songs"
+                      >Your Songs</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="/creator_albums"
+                      >Your Albums</a
+                    >
+                  </li>
+                </ul>
+              </li>
+              {% endif %}
+              <li class="nav-item">
+                <a href="/profile" class="nav-link active">Profile</a>
+              </li>
+              <li class="nav-item">
+                <a href="/logout" class="nav-link"
+                  >Logout <i class="fa-solid fa-right-from-bracket"></i
+                ></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div class="container content">
+      <div class="row flex-row">
+        <div class="profile">
+          <img
+            src="{{url_for('static', filename = 'profile_pictures/'+current_user.profile_pic)}}"
+            alt="{{current_user.name}}"
+            class="rounded-circle profile-image"
+          />
+          <p>{{current_user.name}}</p>
+        </div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-12">
+          <label for="name" class="form-label">Name</label>
+          <form
+            action="/profile"
+            method="POST"
+            class="d-flex mx-auto my-2 justify-content-between"
+          >
+            <input
+              type="text"
+              name="name"
+              id="name"
+              class="form-control me-2"
+              value="{{current_user.name}}"
+              style="width: 1000px"
+            />
+            <button type="submit" class="btn btn-dark">Change</button>
+          </form>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        {% if message %}
+        <p class="text-danger">{{message}}</p>
+        {% endif %}
+        <p>
+          <button
+            class="btn btn-dark"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#changepassword"
+            aria-expanded="false"
+            aria-controls="changepassword"
+          >
+            Click to Change Password
+          </button>
+        </p>
+        <div style="min-height: 120px">
+          <div class="collapse" id="changepassword">
+            <div class="col-12">
+              <form action="/profile" method="POST" class=>
+                <div class="mb-2">
+                  <label for="o_pass" class="form-label">Old Password</label>
+                  <input type="password" class="form-control" name="o_pass" style="width: 1000px;"/>
+                </div>
+                <div class="mb-2">
+                  <label for="n_pass" class="form-label">New Password</label>
+                  <input type="password" class="form-control" name="n_pass" style="width: 1000px;"/>
+                </div>
+                <button type="submit" class="btn btn-dark">Change Password</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <a href="/terms&conditions" target="_blank">Company Policy</a>
+    </div>
+  </body>
+</html>

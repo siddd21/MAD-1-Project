@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RHYTHMIX - Home</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+    />
+    <link rel="stylesheet" href="../static/style.css" />
+  </head>
+  <body>
+    <div class="flex-row">
+      <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/homepage" style="font-size: 25px">
+            <i class="bi bi-headphones me-2"></i>RHYTHMIX
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/homepage"
+                  >Home</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/all_albums">Albums</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Your Library
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a class="dropdown-item" href="/liked_songs">Liked songs</a>
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      href="/user_playlists/{{current_user.user_id}}"
+                      >Your Playlits</a
+                    >
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <form
+              action="/search_page"
+              method="POST"
+              class="d-flex mx-auto my-2"
+              role="search"
+              name="search_form"
+            >
+              <input
+                class="form-control me-2"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+                name="query"
+                id="query"
+              />
+              <button class="btn btn-outline-light" type="submit">
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </button>
+            </form>
+            <ul class="navbar-nav ms-auto">
+              {% if current_user.user_type != 'creator' %}
+              <li class="nav-item">
+                <a href="/creator" class="nav-link">Creator Account</a>
+              </li>
+              {% else %}
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="/creator"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Creator Account
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a class="dropdown-item" href="/creator_songs"
+                      >Your Songs</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="/creator_albums"
+                      >Your Albums</a
+                    >
+                  </li>
+                </ul>
+              </li>
+              {% endif %}
+              <li class="nav-item">
+                <a href="/profile" class="nav-link">Profile</a>
+              </li>
+              <li class="nav-item">
+                <a href="/logout" class="nav-link"
+                  >Logout <i class="fa-solid fa-right-from-bracket"></i
+                ></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <!-- <div class="container mt-4">
+      <div class="row">
+        <div class="d-flex flex-row justify-content-between ms-2 pt-2 content">
+          <h3 class="fw-bolder">Top Songs</h3>
+          <a
+            href="/all_songs"
+            style="margin-right: 15px; padding-top: 5px"
+            class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover link-secondary fw-bolder"
+          >
+            Show more
+          </a>
+        </div>
+        {% for song in songs%}
+        <div class="d-flex flex-row" style="gap: 12px; margin-left: 15px">
+          <div class="d-flex-flex-column">
+            <a href="/listen_song/{{song.song_id}}">
+              <img
+                src="{{url_for('static', filename='posters/'+song.poster)}}"
+                alt="{{song.song_name}}"
+                class="rounded home-image"
+              />
+            </a>
+            <h5 class="text-center">{{song.song_name}}</h5>
+            <div class="d-flex justify-content-between">
+              {{song.artist}}
+              <span>{{song.rating}} <i class="fa-solid fa-star"></i></span>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div> -->
+    <div class="container-fluid mt-1">
+      <div class="row">
+        <div class="col-md-12">
+          <div
+            class="d-flex flex-row justify-content-between ms-2 pt-2 content"
+          >
+            <h3 class="fw-bolder">Top Songs</h3>
+            <a
+              href="/all_songs"
+              style="margin-right: 15px; padding-top: 5px"
+              class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover link-secondary fw-bolder"
+            >
+              Show more
+            </a>
+          </div>
+
+          <div
+            class="d-flex flex-row"
+            style="gap: 30px; margin-left: 15px; margin-right: 15px"
+          >
+            {% for song in songs %}
+            <div class="d-flex-flex-column">
+              <a href="/listen_song/{{song.song_id}}">
+                <img
+                  src="{{url_for('static', filename='posters/'+song.poster)}}"
+                  alt="{{song.song_name}}"
+                  class="rounded song-image"
+                />
+              </a>
+              <h5 class="text-center">{{song.song_name}}</h5>
+              <div class="d-flex justify-content-between">
+                {{song.artist}}
+                <span>{{song.rating}} <i class="fa-solid fa-star"></i></span>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div
+            class="d-flex flex-row justify-content-between ms-2 pt-2 content"
+          >
+            <h3 class="fw-bolder">Top Albums</h3>
+            <a
+              href="/all_albums"
+              style="margin-right: 15px; padding-top: 5px"
+              class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover link-secondary fw-bolder"
+            >
+              Show more
+            </a>
+          </div>
+
+          <div
+            class="d-flex flex-row"
+            style="gap: 30px; margin-left: 15px; margin-right: 15px"
+          >
+            {% for album in albums %}
+            <div class="d-flex-flex-column">
+              <a href="/album_page/{{album.album_id}}">
+                <img
+                  src="{{url_for('static', filename='album_posters/'+album.poster)}}"
+                  alt="{{album.album_name}}"
+                  class="rounded song-image"
+                />
+              </a>
+              <h5 class="text-center">{{album.album_name}}</h5>
+              <div class="d-flex justify-content-between">
+                {{album.artist}}
+                <span>{{album.rating}} <i class="fa-solid fa-star"></i></span>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div
+            class="d-flex flex-row justify-content-between ms-2 pt-2 content"
+          >
+            <h3 class="fw-bolder">Top Artists</h3>
+            <a
+              href="/all_artists"
+              style="margin-right: 15px; padding-top: 5px"
+              class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover link-secondary fw-bolder"
+            >
+              Show more
+            </a>
+          </div>
+
+          <div
+            class="d-flex flex-row"
+            style="gap: 30px; margin-left: 15px; margin-right: 15px"
+          >
+            {% for artist in artists %}
+            <div class="d-flex-flex-column">
+              <a href="/artist_page/{{artist.user_id}}">
+                <img
+                  src="{{url_for('static', filename='profile_pictures/'+artist.profile_pic)}}"
+                  alt="{{artist.name}}"
+                  class="rounded-circle artist-image"
+                />
+              </a>
+              <h5 class="text-center">{{artist.name}}</h5>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
