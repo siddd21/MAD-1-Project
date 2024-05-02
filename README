@@ -1,4 +1,46 @@
-To use the app you need to login or register (if you are not an exisiting user).
-Once you are logged in you will be redirected to the homepage of the application which displays the top songs, albums and artists which the option to view all the songs, albums and artists. It also has a navigation bar which you can use to navigate on the app. You can click on a song to listen to it, read the lyrics, rate the song and add it to liked songs. Clicking on the albums and artists displays the album songs and the songs by the artist, which again can be streamed by clicking on them. You also the feature of creating playlist, which can be accessed by looking at the sections of button 'Your library' on the navbar.
-To upload songs and albums you need to login as creator, which again can be done by clicking on the 'creator account' button on the navbar. Once you are logged in as a creator you can upload songs, update the uploaded songs, create albums and upadte them.
-Even after logging as a creator you still have all the functionalities of the user.
+# MAD-1 Project (Music-App v1)
+
+It is a multi-user app. Used for streaming music/reading lyrics. User can play, read lyrics, rate songs, create playlists. This application was developed for the MAD-1 project (Sept-2023 term).
+
+## Requirements
+
+- Project zip file
+- Python: 3.10.12 or above
+- OS: Windows
+- Browser: Chrome/Brave/Firefox
+- Terminal: Powershell/CMD
+
+## Run Locally
+
+Clone the project OR download the zip file
+
+```bash
+  git clone https://github.com/siddd21/MAD-1-Project.git
+```
+
+Go to the project directory
+
+```bash
+  cd Music\ Application/
+```
+
+Create and activate virtual environment
+
+```bash
+  python -m venv .env
+  .\.env\Scripts/activate
+```
+
+Install the requirements
+
+```bash
+  pip -r requirements.txt
+```
+
+Run the code
+
+```bash
+  python app.py
+```
+
+Open your browser and navigate to http://127.0.0.1:5000
